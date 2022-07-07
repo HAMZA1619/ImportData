@@ -117,6 +117,7 @@ async function uploadfile(link, extension) {
       .end();
     return name;
   } catch (error) {
-    return null;
+    console.log(error)
+    // return null;
   }
 }
