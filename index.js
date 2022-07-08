@@ -12,12 +12,15 @@ const app = express();
 mongoose
   .connect(process.env.MONGO_DB, { useNewUrlParser: true })
   .then((e) => {
-    console.log("conneted");
+    console.log("db conneted");
   })
   .catch((e) => console.log(e));
 app.use(upload.single()); 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.get('/', function (req, res) {
+  res.send('Welcome');
+});
 
 app.use("/bots/import_data", create);
 
