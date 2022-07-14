@@ -107,7 +107,7 @@ async function uploadfile(link, extension) {
           data.push(chunk);
         });
         response.on("end", function () {
-          fs.writeFileSync(__dirname + "/uploads/" + name, data.read());
+          fs.writeFileSync(name, data.read());
         });
       })
       .end();
