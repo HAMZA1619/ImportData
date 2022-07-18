@@ -6,9 +6,12 @@ const fs = require("fs");
 const Stream = require("stream").Transform;
 
 module.exports.create = async function (req, res) {
+  console.log("first")
   try {
-    const importArray = await csv().fromString(req.file.buffer.toString());
+    const importArray =   await csv().fromString(req.file.buffer.toString()) ;
+    // console.log(importArray)
     importArray.forEach(async (row) => {
+
       let exist = row["post id"]
       if (exist) {
         const oldpost = await ImportData.findOne({
@@ -64,6 +67,7 @@ async function savePost(data) {
 
 async function saveRelated(data, id) {
   try {
+    console.log("saveRelated")
     let Related = {};
     Related["post_id"] = id;
     Related["share"] = Number(data["shares number"]);
@@ -76,6 +80,7 @@ async function saveRelated(data, id) {
 }
 async function updatePost(data, id) {
   try {
+    console.log("updatePost")
     let updatePost = {};
     updatePost["last_seen"] = new Date().toLocaleDateString("en-CA");
     updatePost["share"] = Number(data["shares number"]);
@@ -88,6 +93,7 @@ async function updatePost(data, id) {
 }
 async function Resource(data) {
   try {
+    console.log("Resource")
     let Resource = {};
     Resource["video"] = await uploadfile(data["video link"], ".mp4");
     Resource["image"] = await uploadfile(data["image link"], ".jpg");
@@ -99,6 +105,8 @@ async function Resource(data) {
 }
 async function uploadfile(link, extension) {
   try {
+    console.log("uploadfile")
+
     let name = Math.floor(Math.random() * 10000000000) + extension;
     https
       .request(link, function (response) {
@@ -113,7 +121,7 @@ async function uploadfile(link, extension) {
       .end();
     return name;
   } catch (error) {
-    // console.log(error)
-    return null;
+    console.log(error)
+    // return null;
   }
 }

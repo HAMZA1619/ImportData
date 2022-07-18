@@ -15,7 +15,7 @@ mongoose
     console.log("db conneted");
   })
   .catch((e) => console.log(e));
-app.use(upload.single()); 
+app.use(upload.single('file')); 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.get('/', function (req, res) {
